@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/Test.elf",
+            "name": "Debug with OpenOCD",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "configFiles": ["./openocd.cfg"],
+            "searchDir": [],
+            "runToEntryPoint": "main",
+            // "showDevDebugOutput": "raw",
+            "overrideLaunchCommands": [
+                "interpreter-exec console \"monitor halt\"",
+                // "interpreter-exec console \"monitor reset\"",
+                "-target-download",
+                "interpreter-exec console \"monitor reset\"",
+                "-enable-pretty-printing"
+            ],
+            "svdFile": "./tm4c123gh6pm.svd",
+        }
+    ]
+}

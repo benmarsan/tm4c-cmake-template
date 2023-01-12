@@ -1,0 +1,6 @@
+[
+    {
+        "name": "TM4C Toolchain",
+        "toolchainFile": "${workspaceFolder}/cmake/arm-none-eabi-gcc.cmake"
+    }
+]
