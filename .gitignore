@@ -76,7 +76,7 @@ _deps
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
-!.vscode/launch.json
+#!.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
@@ -95,5 +95,3 @@ _deps
 
 # CMake build directory
 build/
-# Don't push TivaWare (for now)
-libraries/TivaWare/
