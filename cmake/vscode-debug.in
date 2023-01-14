@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "@PROJ_ELF_PATH@",
+            "name": "@PROJ_NAME@",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "configFiles": ["@OPENOCD_CFG@"],
+            "searchDir": [],
+            "runToEntryPoint": "main",
+            // "showDevDebugOutput": "raw",
+            "overrideLaunchCommands": [
+                "interpreter-exec console \"monitor halt\"",
+                "-target-download",
+                "-enable-pretty-printing"
+            ],
+            "svdFile": "./tm4c123gh6pm.svd",
+        }
+    ]
+}

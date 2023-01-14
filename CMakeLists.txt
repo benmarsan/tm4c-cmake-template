@@ -39,22 +39,29 @@ target_compile_definitions(${EXECUTABLE} PRIVATE
     -DTARGET_IS_TM4C123_RB1
 )
 
+target_link_libraries(${EXECUTABLE} PUBLIC
+    c
+    m
+    rdimon
+    gcc
+)
+
 # Compiler options
 target_compile_options(${EXECUTABLE} PRIVATE
     -mcpu=cortex-m4
     -mthumb
     -mfpu=fpv4-sp-d16
     -mfloat-abi=hard
-
+    # Optimizations
     -ffunction-sections
     -fdata-sections
-
+    -O0
+    -g3
+    # Compile warnings
     -Wall
     -Werror
     -Wextra
     -Wpedantic
-    -O0
-    -g3
 )
 
 # Linker options
@@ -69,13 +76,6 @@ target_link_options(${EXECUTABLE} PRIVATE
     -Wl,-Map=${PROJECT_NAME}.map,--cref
     -Wl,--gc-sections
     -Wl,-print-memory-usage
-)
-
-target_link_libraries(${EXECUTABLE} PUBLIC
-    c
-    m
-    rdimon
-    gcc
 )
 
 # Print executable size as part of the post build process
@@ -95,6 +95,10 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMENT "Building ${BIN_FILE}"
 )
 
-add_custom_target(flash
-    COMMAND lm4flash -v ${BIN_FILE}
-)
+set(OPENOCD_CFG ${CMAKE_SOURCE_DIR}/openocd.cfg)
+include(cmake/flash-target.cmake)
+flash_target(${BIN_FILE} flash)
+
+set(VSCODE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.vscode")
+include(cmake/vscode-debug.cmake)
+vscode_debug(${PROJECT_NAME} ${EXECUTABLE})
