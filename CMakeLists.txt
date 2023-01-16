@@ -23,6 +23,7 @@ set(APP_SRC
     src/main.c
     src/PLL.c
     src/SysTick.c
+    src/UART.c
 )
 
 add_executable(${EXECUTABLE} ${APP_SRC})
@@ -42,7 +43,6 @@ target_compile_definitions(${EXECUTABLE} PRIVATE
 target_link_libraries(${EXECUTABLE} PUBLIC
     c
     m
-    rdimon
     gcc
 )
 
@@ -71,7 +71,6 @@ target_link_options(${EXECUTABLE} PRIVATE
     -mthumb
     -mfpu=fpv4-sp-d16
     -mfloat-abi=hard
-    -specs=rdimon.specs
     -Wl,--entry=ResetISR
     -Wl,-Map=${PROJECT_NAME}.map,--cref
     -Wl,--gc-sections
